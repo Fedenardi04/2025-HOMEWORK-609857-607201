@@ -7,13 +7,7 @@ public class Labirinto {
 	Stanza stanzaIniziale;// stanza di ingresso
 	Stanza stanzaVincente;// stanza di uscita
 	
-	Attrezzo lanterna;
-	Attrezzo osso;
-	Stanza atrio;
-	Stanza aulaN11;
-	Stanza aulaN10;
-	Stanza laboratorio;
-	Stanza biblioteca;
+	
 	
 	
 	
