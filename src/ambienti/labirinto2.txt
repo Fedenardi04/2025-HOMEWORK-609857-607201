@@ -1,0 +1,5 @@
+Stanze: Biblioteca N10 N11 Atrio
+Inizio: Atrio
+Vincente: Biblioteca
+Attrezzi: lanterna 3 N10
+Uscite: Atrio nord Biblioteca Atrio est N11 Atrio sud N10 N11 ovest Atrio N10 nord Atrio

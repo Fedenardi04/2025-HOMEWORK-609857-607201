@@ -1,11 +1,15 @@
 package diadia;
 
 
+import java.io.IOException;
 import java.util.Scanner;
 
+import ambienti.Labirinto;
 import ambienti.Stanza;
+import comandi.AbstractComando;
 import comandi.ComandoIn;
 import comandi.FabbricaDiComandi;
+import comandi.FabbricaDiComandiNonRiflessiva;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -36,18 +40,23 @@ public class DiaDia {
 
 	private IO miaConsole;
 
-	public DiaDia(IO console) {
+	public DiaDia(IO console) throws IOException {
 		this.partita = new Partita();
 		this.miaConsole=console;
+	}
+	
+	public DiaDia(IO console, Labirinto labirinto) {
+		this.miaConsole=console;
+		this.partita = new Partita(labirinto);
+		
 	}
 
 
 	////////////////////////////////////////////////////
-	public void gioca() {
+	public void gioca() throws Exception {
 		String istruzione; 
-		Scanner scannerDiLinee;
 
-		System.out.println(MESSAGGIO_BENVENUTO);		
+		this.miaConsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do		{
 			if(partita.isFinita()) {
 				this.sconfitta();
@@ -63,19 +72,20 @@ public class DiaDia {
 	 * Processa una istruzione 
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
+	 * @throws Exception 
 	 */
 
-	public boolean processaIstruzione(String istruzione) {
-		ComandoIn comandoDaEseguire;
-		FabbricaDiComandi factory = new FabbricaDiComandi();
+	public boolean processaIstruzione(String istruzione) throws Exception {
+		AbstractComando comandoDaEseguire;
+		FabbricaDiComandi factory = new FabbricaDiComandiNonRiflessiva();
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.vinta())
 
-			System.out.println("Hai vinto!");
+			this.miaConsole.mostraMessaggio("Hai vinto!");
 		if (!this.partita.giocatoreIsVivo())
 
-			System.out.println("Hai esaurito i CFU...");
+			this.miaConsole.mostraMessaggio("Hai esaurito i CFU...");
 
 		return this.partita.isFinita();
 	}
@@ -85,7 +95,7 @@ public class DiaDia {
 		miaConsole.mostraMessaggio("Hai perso!");  // si desidera smettere
 	}
 
-	public static void main(String[] argc) {
+	public static void main(String[] argc) throws Exception {
 		IO console=new IOConsole();
 		DiaDia gioco = new DiaDia(console);
 		gioco.gioca();

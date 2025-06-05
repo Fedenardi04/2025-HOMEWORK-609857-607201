@@ -2,25 +2,26 @@ package comandi;
 
 import diadia.IO;
 import diadia.Partita;
+import personaggi.AbstractPersonaggio;
 
-public class ComandoNonValido extends AbstractComando{
+public class ComandoSaluta extends AbstractComando {
 
 	@Override
 	public void esegui(Partita partita) {
-		System.out.println("il comando selezionato non è valido");
-
+		AbstractPersonaggio personaggio=
+				partita.getStanzaCorrente().getPersonaggio();
+		//non c'è alcun personaggio nella stanza corrente
+		if(personaggio==null)
+			return;
+		personaggio.saluta();
+		return;
+		
 	}
-
-//	@Override
-//	public void setParametro(String parametro) {
-//		// TODO Auto-generated method stub
-//
-//	}
 
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "saluta";
 	}
 
 	@Override

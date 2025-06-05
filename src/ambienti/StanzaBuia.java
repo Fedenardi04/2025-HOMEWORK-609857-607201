@@ -1,5 +1,7 @@
 package ambienti;
 
+import attrezzi.Attrezzo;
+
 //La classe StanzaBuia deve avere una variabile di
 //istanza di tipo String: memorizza il nome
 //dell'attrezzo che consente di avere la descrizione
@@ -25,9 +27,8 @@ public class StanzaBuia extends Stanza {
 	public String getDescrizione() {
 		//controllo se in stanza c'è l'attrezzo necessario
 		boolean check=false;
-		for(int i=0; i<this.getAttrezzi().length; i++) {
-			if(this.getAttrezzi()[i]!=null&&
-					this.getAttrezzi()[i].toString().equals(attrezzo_necessario)) {
+		for(Attrezzo corrente : this.getAttrezzi()) {
+			if(corrente.toString().equals(attrezzo_necessario)) {
 				check=true;
 			}
 		}
@@ -35,7 +36,7 @@ public class StanzaBuia extends Stanza {
 			return super.getDescrizione()+ "qui c'è un buio pesto";
 		}
 		return super.getDescrizione();
-		
+
 	}
 
 }

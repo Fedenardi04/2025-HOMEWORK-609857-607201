@@ -10,7 +10,7 @@ import ambienti.StanzaMagica;
 import attrezzi.Attrezzo;
 
 class StanzaMagicaTest {
-	
+
 	Stanza mia_stanza_magica;//noto tipo statico
 	Attrezzo lanterna;
 	Attrezzo clava;
@@ -26,11 +26,14 @@ class StanzaMagicaTest {
 	void test() {
 		mia_stanza_magica.addAttrezzo(lanterna);
 		mia_stanza_magica.addAttrezzo(clava);
-		assertEquals(mia_stanza_magica.getAttrezzi()[0].getNome(), "lanterna");
-		assertEquals(mia_stanza_magica.getAttrezzi()[1].getNome(), "avalc");
+		Attrezzo avalc=new Attrezzo("avalc", 6);
+		//		assertEquals(mia_stanza_magica.getAttrezzi()[0].getNome(), "lanterna");
+		//		assertEquals(mia_stanza_magica.getAttrezzi()[1].getNome(), "avalc");
+		assertTrue(mia_stanza_magica.getAttrezzi().contains(avalc));
+		assertTrue(mia_stanza_magica.getAttrezzi().contains(lanterna));
 		//verifico pesi
-		assertEquals(mia_stanza_magica.getAttrezzi()[0].getPeso(), 2);
-		assertEquals(mia_stanza_magica.getAttrezzi()[1].getPeso(), 6);
+		//		assertEquals(mia_stanza_magica.getAttrezzi()[0].getPeso(), 2);
+		//		assertEquals(mia_stanza_magica.getAttrezzi()[1].getPeso(), 6);
 	}
 
 }

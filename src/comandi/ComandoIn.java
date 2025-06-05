@@ -1,5 +1,6 @@
 package comandi;
 
+import diadia.IO;
 import diadia.Partita;
 
 public interface ComandoIn {
@@ -18,5 +19,7 @@ public interface ComandoIn {
 	public String getParametro();
 	
 	//esegue il comando e restituisce le stampe avvenute a seguito dell'esecuzione
-	public String getResponso(Partita partita);
+//	public String getResponso(Partita partita);
+
+	public void getResponso(Partita partita, IO console);
 }

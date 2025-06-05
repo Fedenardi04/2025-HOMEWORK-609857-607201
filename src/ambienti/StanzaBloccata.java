@@ -1,5 +1,7 @@
 package ambienti;
 
+import direzioni.Direzione;
+
 public class StanzaBloccata extends Stanza {
 	
 	String mio_pass;
@@ -26,11 +28,12 @@ public class StanzaBloccata extends Stanza {
 //	metodo ritorna un riferimento alla stanza corrente
 //	– altrimenti ha l’usuale comportamento (ritorna la stanza
 //	corrispondente all'uscita specificata)
-	public Stanza getStanzaAdiacente(String dir) {
+	public Stanza getStanzaAdiacente(Direzione dir) {
 		//caso in cui direzione deisderata sia diversa da direzione bloccata
 		//oppure c'è l'attrezzo pass->restituisco stanza ad normalmente
 		if(!dir.equals(mia_direzione_bloccata)||
 			this.getAttrezzo(this.mio_pass)!=null) {
+//			return super.getStanzaAdiacente(dir);
 			return super.getStanzaAdiacente(dir);
 		}
 		

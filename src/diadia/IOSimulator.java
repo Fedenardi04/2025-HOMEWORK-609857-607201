@@ -1,9 +1,17 @@
 package diadia;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import comandi.AbstractComando;
 import comandi.ComandoIn;
+import comandi.FabbricaComandiRiflessiva;
 import comandi.FabbricaDiComandi;
+import comandi.FabbricaDiComandiNonRiflessiva;
+
+
+
 
 //I metodi mostraMessaggio() e leggiRiga() dovranno
 //rispettivamente scrivere / leggere i messaggi che sono
@@ -19,48 +27,54 @@ import comandi.FabbricaDiComandi;
 public class IOSimulator implements IO {
 	
 	
-	private String[] comandi;    //stringhe inserite dall'utente
-	private String[] stampe;     //stringhe stampate dal programma
+	private List<String> comandi; //stringhe inserite dall'utente
+	private List<String> stampe;  //stringhe stampate dal programma
 	private int num_mesaggi_letti;
 	private DiaDia dia_dia;
 	
 	public IOSimulator(DiaDia dia_dia) {
 		this.dia_dia=dia_dia;
-		stampe=new String[10];
+		//uso arrayList per sfruttare accesso posizionale in tempo costante
+		stampe=new ArrayList<String>();
 	}
 	
-	//immagazzina risposta di diadia al comando iniettato
-	//tale comando è il par formale
-	//->immagazzina al posto num_messaggi_letti-1
-	@Override
-	public void mostraMessaggio(String responso) {
-		this.stampe[num_mesaggi_letti-1]=responso;
+	public IOSimulator() {
+		stampe=new ArrayList<String>();
 	}
 
-	//inietta in dia dia un comando,
-	//deve ritornare la stampa fatta dal diadia(il responso) a seguito del comando
+	//immagazzini risposta del programma
 	@Override
-	public String leggiRiga() {
+	public void mostraMessaggio(String responso) {
+		this.stampe.add(num_mesaggi_letti, responso);
+	}
+
+	//esegue un comando, invocando get resposo avviene immagazzinamento risposta
+	@Override
+	public String leggiRiga() throws Exception {
 		//ottengo il comando da eseguire
-		ComandoIn comandoDaEseguire;
-		FabbricaDiComandi factory = new FabbricaDiComandi();
-		comandoDaEseguire = factory.costruisciComando(this.comandi[num_mesaggi_letti]);
+		AbstractComando comandoDaEseguire;
+		FabbricaDiComandi factory = new FabbricaComandiRiflessiva();
+		comandoDaEseguire = factory.costruisciComando(this.comandi.get(num_mesaggi_letti));
 		//ora ho il comando, eseguo e ottengo il responso(ovviamente, lo eseguo sulla partita)
-		String da_ritornare=comandoDaEseguire.getResponso(this.dia_dia.getPartita());
+		comandoDaEseguire.getResponso(this.dia_dia.getPartita(), this);
 		this.num_mesaggi_letti++;
-		return da_ritornare;
+		return null;
 	}
 	
-	public String[] getComandi() {
+	public List<String> getComandi() {
 		return this.comandi;
 	}
 	
-	public void setComandi(String[] comandi) {
+	public void setComandi(List<String> comandi) {
 		this.comandi=comandi;
 	}
 
-	public Object[] getStampe() {
+	public List<String> getStampe() {
 		return this.stampe;
+	}
+	
+	public void setDiaDia(DiaDia diadia) {
+		this.dia_dia=diadia;
 	}
 
 }
