@@ -2,10 +2,13 @@ package comandi.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import attrezzi.Attrezzo;
+import comandi.AbstractComando;
 import comandi.ComandoIn;
 import comandi.ComandoPosa;
 import comandi.ComandoPrendi;
@@ -18,33 +21,18 @@ import diadia.Partita;
  */
 class ComandoPrendiEPosaTest {
 
-	Partita mia_partita;
-	ComandoIn comando_prendi;
-	ComandoIn comando_posa;
+	private Partita mia_partita;
+	private AbstractComando comando_prendi;
+	private AbstractComando comando_posa;
 
 	@BeforeEach
-	void setUp() {
-		mia_partita=new Partita();
+	void setUp() throws IOException {
+		mia_partita=new Partita("C://Users//carlo//OneDrive//Desktop//labirinto1.txt");
 		comando_prendi=new ComandoPrendi();
 		comando_posa=new ComandoPosa();
 	}
 
-	@Test
-	void test_classe_prendi_assert_same() {
-		//il giocatore si trova nella stanza "atrio" dove c'è "osso"
-		comando_prendi.setParametro("osso");
-		comando_prendi.esegui(mia_partita);
-		//so che rif a osso si troverà al posto zero dell'array attrezzi della borsa
-		Attrezzo atteso=mia_partita.getGiocatore().getBorsa().getArrayAttrezzi()[0];
-		assertSame(mia_partita.getGiocatore().getBorsa().getAttrezzo("osso"), atteso);
-		assertNull(mia_partita.getStanzaCorrente().getAttrezzo("osso"));
 
-	}
-
-
-	//ho fatto si che il m. toString si attrezzo sovrascrivesse quello di object
-	//->assertEquals mi compare stringa e non il suo indirizzo
-	//NB ciò perché classe stringa è speciale e overrida  metodo equals
 	@Test
 	void test_classe_prendi_assert_equals() {
 		//il giocatore si trova nella stanza "atrio" dove c'è "osso"

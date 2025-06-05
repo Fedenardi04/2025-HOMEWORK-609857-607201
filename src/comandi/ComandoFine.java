@@ -1,9 +1,10 @@
 package comandi;
 
+import diadia.IO;
 import diadia.IOConsole;
 import diadia.Partita;
 
-public class ComandoFine implements ComandoIn {
+public class ComandoFine extends AbstractComando {
 
 	@Override
 	public void esegui(Partita partita) {
@@ -13,11 +14,11 @@ public class ComandoFine implements ComandoIn {
 		
 	}
 
-	@Override
-	public void setParametro(String parametro) {
-		// TODO Auto-generated method stub
-		
-	}
+//	@Override
+//	public void setParametro(String parametro) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 	@Override
 	public String getNome() {
@@ -31,10 +32,12 @@ public class ComandoFine implements ComandoIn {
 		return null;
 	}
 
+
+
 	@Override
-	public String getResponso(Partita partita) {
+	public void getResponso(Partita partita, IO console) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 }

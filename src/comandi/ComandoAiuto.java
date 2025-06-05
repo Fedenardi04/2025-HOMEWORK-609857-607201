@@ -1,9 +1,10 @@
 package comandi;
 
+import diadia.IO;
 import diadia.IOConsole;
 import diadia.Partita;
 
-public class ComandoAiuto implements ComandoIn {
+public class ComandoAiuto extends AbstractComando {
 	
 	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
 	@Override
@@ -16,11 +17,6 @@ public class ComandoAiuto implements ComandoIn {
 		
 	}
 
-	@Override
-	public void setParametro(String parametro) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public String getNome() {
@@ -34,10 +30,11 @@ public class ComandoAiuto implements ComandoIn {
 		return null;
 	}
 
+
 	@Override
-	public String getResponso(Partita partita) {
+	public void getResponso(Partita partita, IO console) {
 		this.esegui(partita);
-		return"vai aiuto fine prendi posa ";
+		console.mostraMessaggio("vai aiuto fine prendi posa ");
 	}
 
 }

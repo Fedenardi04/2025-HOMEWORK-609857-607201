@@ -17,10 +17,7 @@ public class BorsaArrayList extends Borsa {
 		if(attrezzo==null) {
 			return false;
 		}
-		if(array_di_attrezzi.add(attrezzo)) {
-			return true;
-		}
-		return false;
+		return array_di_attrezzi.add(attrezzo);
 	}
 	
 	@Override

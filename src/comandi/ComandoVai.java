@@ -1,14 +1,16 @@
 package comandi;
 
 import ambienti.Stanza;
+import diadia.IO;
 import diadia.IOConsole;
 import diadia.Partita;
+import direzioni.Direzione;
 
-public class ComandoVai implements ComandoIn {
-	private String direzione;
+public class ComandoVai extends AbstractComando {
+//	private String parametro;
 
 	public ComandoVai(String direzione) {
-		this.direzione = direzione;
+		this.parametro = direzione;
 	}
 	
 	public ComandoVai() {
@@ -23,12 +25,13 @@ public class ComandoVai implements ComandoIn {
 		// qui il codice per cambiare stanza ...
 		
 		IOConsole o=new IOConsole();
-		if(this.direzione==null) {
+		if(this.parametro==null) {
 			o.mostraMessaggio("si selezioni una direzione");
 			return;
 		}
 		
-		Stanza prossima=partita.getStanzaCorrente().getStanzaAdiacente(this.direzione);
+//		Stanza prossima=partita.getStanzaCorrente().getStanzaAdiacente(this.parametro);
+		Stanza prossima=partita.getStanzaCorrente().getStanzaAdiacente(Direzione.valueOf(this.parametro));
 		if(prossima==null) {
 			o.mostraMessaggio("direzione inesistente");
 			return;
@@ -43,24 +46,21 @@ public class ComandoVai implements ComandoIn {
 		o.mostraMessaggio(partita.getGiocatore().getDescrizione());
 	}
 
-	@Override
-	public void setParametro(String parametro) {
-		this.direzione=parametro;
-		
-	}
+
 	@Override
 	public String getNome() {
 		return "vai";
 	}
 	@Override
 	public String getParametro() {
-		return this.direzione;
+		return this.parametro;
 	}
 
+
 	@Override
-	public String getResponso(Partita partita) {
+	public void getResponso(Partita partita, IO console) {
 		this.esegui(partita);
-		return partita.getStanzaCorrente().getDescrizione()+""+
-				partita.getGiocatore().getDescrizione();
+		console.mostraMessaggio(partita.getStanzaCorrente().getDescrizione()+""+
+				partita.getGiocatore().getDescrizione());
 	}
 }

@@ -18,6 +18,7 @@ class ImpostaStanzaAdiacenteTest {
 	private Stanza stanzaNonInizializzata;
 	private Stanza stanzaInizializzata;
 	private Stanza s_adiacente_post_metodo;
+	private Stanza s_adiacente_pre_metodo;
 	
 	@BeforeEach
 	public void SetUp() {
@@ -25,7 +26,7 @@ class ImpostaStanzaAdiacenteTest {
 		
 		
 		this.stanzaInizializzata=new Stanza("s_inizializzata");
-		Stanza s_adiacente_pre_metodo=new Stanza("s_adiacente_pre_metodo");
+		s_adiacente_pre_metodo=new Stanza("s_adiacente_pre_metodo");
 		this.stanzaInizializzata.impostaStanzaAdiacente("nord", s_adiacente_pre_metodo);
 		
 		this.s_adiacente_post_metodo=new Stanza("s_adiacente_post_metodo");

@@ -1,5 +1,7 @@
 package diadia;
 
+import java.io.IOException;
+
 import ambienti.Labirinto;
 import ambienti.Stanza;
 import giocatore.Giocatore;
@@ -23,10 +25,23 @@ public class Partita {
 	
 	private Giocatore mioGiocatore;
 	
-	public Partita(){
+	public Partita(String file) throws IOException {
+//		this.mioLabirinto=new Labirinto(file);
+		this.mioLabirinto=Labirinto.newBuilder(file);
+		this.mioGiocatore=new Giocatore();
+		this.mioGiocatore.setGiocatore();
 		
-		this.mioLabirinto=new Labirinto();
-		this.mioLabirinto.setLabirinto();
+		this.stanzaCorrente=this.mioLabirinto.getStanzaIniziale();
+		this.stanzaVincente=this.mioLabirinto.getStanzaVincente();
+		
+		this.finita = false;
+	}	
+	
+	//esiste solo per far girare versione iniziale del diadia
+	public Partita() throws IOException{
+		
+		this.mioLabirinto=Labirinto.newBuilder("C://Users//carlo//OneDrive//Desktop//labirinto2.txt");
+		//this.mioLabirinto.setLabirinto();
 		
 		this.mioGiocatore=new Giocatore();
 		this.mioGiocatore.setGiocatore();
@@ -37,6 +52,18 @@ public class Partita {
 		this.finita = false;
 	}
 	
+	public Partita(Labirinto labirinto) {
+		this.mioLabirinto=labirinto;
+		
+		this.mioGiocatore=new Giocatore();
+		this.mioGiocatore.setGiocatore();
+		
+		this.stanzaCorrente=this.mioLabirinto.getStanzaIniziale();
+		this.stanzaVincente=this.mioLabirinto.getStanzaVincente();
+		
+		this.finita = false;
+	}
+
 	public Stanza getStanzaCorrente() {
 		return this.stanzaCorrente;
 	}
